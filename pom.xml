@@ -14,8 +14,8 @@
     <url>https://github.com/omerhashmininjago/</url>
 
     <scm>
-        <url>https://github.com/omerhashmininjago/omer-rest-api-invoker.git</url>
-        <connection>git@github.com:omerhashmininjago/omer-rest-api-invoker.git</connection>
+        <url>https://github.com/omerhashmininjago/rest-api-invoker.git</url>
+        <connection>git@github.com:omerhashmininjago/rest-api-invoker.git</connection>
     </scm>
 
     <developers>
