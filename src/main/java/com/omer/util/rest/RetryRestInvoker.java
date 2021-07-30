@@ -1,4 +1,4 @@
-package com.omer.util;
+package com.omer.util.rest;
 
 import io.github.resilience4j.core.IntervalFunction;
 import io.github.resilience4j.retry.Retry;

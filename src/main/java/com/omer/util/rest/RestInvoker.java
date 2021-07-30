@@ -1,4 +1,4 @@
-package com.omer.util;
+package com.omer.util.rest;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
