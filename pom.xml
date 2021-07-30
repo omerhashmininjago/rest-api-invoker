@@ -17,6 +17,14 @@
         <url>https://github.com/omerhashmininjago/omer-rest-api-invoker.git</url>
         <connection>git@github.com:omerhashmininjago/omer-rest-api-invoker.git</connection>
     </scm>
+
+    <developers>
+        <developer>
+            <id>omerhashmininjago</id>
+            <name>Omer Hashmi</name>
+        </developer>
+    </developers>
+
     <properties>
         <java.version>1.8</java.version>
     </properties>
