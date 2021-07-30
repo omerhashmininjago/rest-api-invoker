@@ -11,6 +11,7 @@ import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import java.io.IOException;
 import java.time.Duration;
 import java.util.function.Supplier;
 
@@ -49,6 +50,7 @@ public interface RetryRestInvoker<T> extends RestInvoker<T> {
                             .intervalFunction(IntervalFunction.of(this.intervalFunction))
                             .maxAttempts(this.maxAttempts)
                             .waitDuration(Duration.ofSeconds(this.waitDuration))
+                            .retryExceptions(IOException.class)
                     .build()).retry("retry");
         }
 
