@@ -35,10 +35,10 @@ public interface RetryRestInvoker<T> extends RestInvoker<T> {
 
         @Value("${maxAttempts: 3}")
         private int maxAttempts;
-        @Value("${intervalFunction: 500L}")
+        @Value("${intervalFunction: 500}")
         private Long intervalFunction;
-        @Value("${waitDuration: 30L}")
-        private int waitDuration;
+        @Value("${waitDuration: 30}")
+        private Long waitDuration;
 
         private static Retry RETRY;
 
@@ -48,7 +48,7 @@ public interface RetryRestInvoker<T> extends RestInvoker<T> {
                     .custom()
                             .intervalFunction(IntervalFunction.of(this.intervalFunction))
                             .maxAttempts(this.maxAttempts)
-                            .waitDuration(Duration.ofSeconds(30L))
+                            .waitDuration(Duration.ofSeconds(this.waitDuration))
                     .build()).retry("retry");
         }
 

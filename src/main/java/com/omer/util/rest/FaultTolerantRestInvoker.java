@@ -37,7 +37,7 @@ public interface FaultTolerantRestInvoker<T> extends RestInvoker<T> {
 
         @Value("${automaticTransitionFromOpenToHalfOpenEnabled: false}")
         private boolean automaticTransitionFromOpenToHalfOpenEnabled;
-        @Value("${failureRateThreshold: 50.0F}")
+        @Value("${failureRateThreshold: 50.0}")
         private Float failureRateThreshold;
         @Value("${minimumNumberOfCalls: 100}")
         private int minimumNumberOfCalls;
@@ -47,13 +47,13 @@ public interface FaultTolerantRestInvoker<T> extends RestInvoker<T> {
         private int permittedNumberOfCallsInHalfOpenState;
         @Value("${slidingWindowSize: 100}")
         private int slidingWindowSize;
-        @Value("${waitIntervalFunctionInOpenState: 60L}")
+        @Value("${waitIntervalFunctionInOpenState: 60}")
         private Long waitIntervalFunctionInOpenState;
-        @Value("${slowCallRateThreshold: 100.0F}")
+        @Value("${slowCallRateThreshold: 100.0}")
         private Float slowCallRateThreshold;
-        @Value("${slowCallDurationThreshold: 60L}")
+        @Value("${slowCallDurationThreshold: 60}")
         private Long slowCallDurationThreshold;
-        @Value("${maxWaitDurationInHalfOpenState: 0L}")
+        @Value("${maxWaitDurationInHalfOpenState: 0}")
         private Long maxWaitDurationInHalfOpenState;
 
         private static CircuitBreaker FAULT_TOLERANCE;

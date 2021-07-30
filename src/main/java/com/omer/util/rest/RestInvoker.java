@@ -9,7 +9,7 @@ import org.springframework.web.client.RestTemplate;
 
 /**
  * <p>
- *     An generic implementation to invoke endpoints exposed by services
+ *     A generic implementation to invoke endpoints exposed by services
  * </p>
  * @param <T> T Represents the expected response i.e. class type to be returned
  *           wrapped in ResponseEntity
@@ -17,6 +17,7 @@ import org.springframework.web.client.RestTemplate;
 public interface RestInvoker<T> {
 
     RestTemplate REST_TEMPLATE = new RestTemplate();
+
     /**
      * The URL/Hostname of the corresponding service hosting the endpoints
      *
