@@ -6,7 +6,17 @@
     <groupId>com.omer.util</groupId>
     <artifactId>omer-rest-api-invoker</artifactId>
     <version>0.0.1</version>
+    <packaging>jar</packaging>
 
+    <name>Rest Api Invoker Module</name>
+    <description>A part of Java utilities from omerhashmininjago</description>
+
+    <url>https://github.com/omerhashmininjago/</url>
+
+    <scm>
+        <url>https://github.com/omerhashmininjago/omer-rest-api-invoker.git</url>
+        <connection>git@github.com:omerhashmininjago/omer-rest-api-invoker.git</connection>
+    </scm>
     <properties>
         <java.version>1.8</java.version>
     </properties>
