@@ -1,6 +1,6 @@
-# omer-rest-api-invoker
+# rest-api-invoker
 
-The omer-rest-api-invoker library gives a generic implementation of how endpoints can be invoked.
+The rest-api-invoker library gives a generic implementation of how endpoints can be invoked.
 The develop does not need to create objects for Response Entity, Http Entity, and how the actual invocation would happen.
 The developer only needs to pass the 
 1. end point
