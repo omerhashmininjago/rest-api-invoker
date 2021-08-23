@@ -7,6 +7,7 @@ The developer only needs to pass the
 2. http method
 3. http headers
 4. the return type of the exposed endpoint
+5. hostname
 
 Over loaded methods have been provided so that the developer does not need to pass null for a parameter which is not required
 
