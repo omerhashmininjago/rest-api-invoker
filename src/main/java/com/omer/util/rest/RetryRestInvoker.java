@@ -28,14 +28,14 @@ import java.util.function.Supplier;
  * @param <T> T Represents the expected response i.e. class type to be returned
  *            wrapped in ResponseEntity
  */
-public interface RetryRestInvoker<T> extends RestInvoker<T> {
+public final class RetryRestInvoker<T> extends RestInvoker<T> {
 
-    default ResponseEntity<T> invoke(@NonNull String url, @NonNull String endPoint, @NonNull HttpMethod httpMethod, @NonNull HttpHeaders httpHeaders, @NonNull String requestBody, @NonNull Class<T> classReference) {
-        return RetryUtil.invoke(url + endPoint, httpMethod, new HttpEntity<>(requestBody, httpHeaders), classReference);
+    protected ResponseEntity<T> invoke(@NonNull final String uri, @NonNull final HttpMethod httpMethod, @NonNull final HttpHeaders httpHeaders, @NonNull final String requestBody, @NonNull final Class<T> classReference) {
+        return RetryUtil.invoke(uri , httpMethod, new HttpEntity<>(requestBody, httpHeaders), classReference);
     }
 
     @Component
-    class RetryUtil {
+    private static class RetryUtil {
 
         private static final Logger LOG = LoggerFactory.getLogger(RetryUtil.class);
 
@@ -60,7 +60,7 @@ public interface RetryRestInvoker<T> extends RestInvoker<T> {
                     .build()).retry("retry");
         }
 
-        public static <T> ResponseEntity<T> invoke(@NonNull String url, @NonNull HttpMethod httpMethod, @NonNull HttpEntity httpEntity, @NonNull Class classReference) {
+        public static <T> ResponseEntity<T> invoke(@NonNull final String url, @NonNull final HttpMethod httpMethod, @NonNull final HttpEntity httpEntity, @NonNull final Class classReference) {
             API_INVOCATION_COUNT.set(0);
             Supplier<ResponseEntity> decoratedSupplier = Retry.decorateSupplier(RETRY, () -> invokeEndPoint(url, httpMethod, httpEntity, classReference));
 
@@ -70,7 +70,7 @@ public interface RetryRestInvoker<T> extends RestInvoker<T> {
             return responseEntity;
         }
 
-        private static ResponseEntity invokeEndPoint(@NonNull String url, @NonNull HttpMethod httpMethod, @NonNull HttpEntity httpEntity, @NonNull Class classReference) {
+        private static ResponseEntity invokeEndPoint(@NonNull final String url, @NonNull final HttpMethod httpMethod, @NonNull final HttpEntity httpEntity, @NonNull final Class classReference) {
             API_INVOCATION_COUNT.set(API_INVOCATION_COUNT.get() + 1);
             LOG.debug("API Invocation Count : {}", API_INVOCATION_COUNT.get());
             return REST_TEMPLATE.exchange(url, httpMethod, httpEntity, classReference);

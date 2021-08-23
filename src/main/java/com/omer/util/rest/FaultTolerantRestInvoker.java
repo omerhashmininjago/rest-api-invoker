@@ -26,14 +26,14 @@ import java.util.function.Supplier;
  * @param <T> T Represents the expected response i.e. class type to be returned
  *            wrapped in ResponseEntity
  */
-public interface FaultTolerantRestInvoker<T> extends RestInvoker<T> {
+public final class FaultTolerantRestInvoker<T> extends RestInvoker<T> {
 
-    default ResponseEntity<T> invoke(@NonNull String url, @NonNull String endPoint, @NonNull HttpMethod httpMethod, @NonNull HttpHeaders httpHeaders, @NonNull String requestBody, @NonNull Class<T> classReference) {
-        return FaultTolerantUtil.invoke(url + endPoint, httpMethod, new HttpEntity<>(requestBody, httpHeaders), classReference);
+    protected ResponseEntity<T> invoke(@NonNull final String uri, @NonNull final HttpMethod httpMethod, @NonNull final HttpHeaders httpHeaders, @NonNull final String requestBody, @NonNull final Class<T> classReference) {
+        return FaultTolerantUtil.invoke(uri, httpMethod, new HttpEntity<>(requestBody, httpHeaders), classReference);
     }
 
     @Component
-    class FaultTolerantUtil {
+    private static class FaultTolerantUtil {
 
         @Value("${automaticTransitionFromOpenToHalfOpenEnabled: false}")
         private boolean automaticTransitionFromOpenToHalfOpenEnabled;
@@ -79,14 +79,14 @@ public interface FaultTolerantRestInvoker<T> extends RestInvoker<T> {
 
         }
 
-        public static <T> ResponseEntity<T> invoke(@NonNull String url, @NonNull HttpMethod httpMethod, @NonNull HttpEntity httpEntity, @NonNull Class classReference) {
+        public static <T> ResponseEntity<T> invoke(@NonNull final String url, @NonNull final HttpMethod httpMethod, @NonNull final HttpEntity httpEntity, @NonNull final Class classReference) {
             Supplier<ResponseEntity> decoratedSupplier = CircuitBreaker.decorateSupplier(FAULT_TOLERANCE, invokeEndPoint(url, httpMethod, httpEntity, classReference));
 
             return Try.ofSupplier(decoratedSupplier)
                     .recover(throwable -> ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).build()).get();
         }
 
-        private static Supplier<ResponseEntity> invokeEndPoint(@NonNull String url, @NonNull HttpMethod httpMethod, @NonNull HttpEntity httpEntity, @NonNull Class classReference) {
+        private static Supplier<ResponseEntity> invokeEndPoint(@NonNull final String url, @NonNull final HttpMethod httpMethod, @NonNull final HttpEntity httpEntity, @NonNull final Class classReference) {
             return () -> REST_TEMPLATE.exchange(url, httpMethod, httpEntity, classReference);
         }
     }
